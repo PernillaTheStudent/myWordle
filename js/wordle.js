@@ -31,7 +31,6 @@ function initializeGame() {
     wordleWord = ["_", "_", "_", "_", "_"]
 
     computerWord = getComputerWord().toLowerCase()
-    computerWord = "light"
 }
 
 function getComputerWord() {
@@ -131,7 +130,7 @@ Correct word:  ${wordleWord.join("  ")} \n`
     } else {
         text += `
 ${userGuesses.join(" - ")} \n 
-Last guess with letters in wrong place:  ${lastLettersWrongPosition.join(" ").toUpperCase()} 
+Last guess - letters in wrong place:  ${lastLettersWrongPosition.join(" ").toUpperCase()} 
 Correct word:  ${wordleWord.join("  ").toUpperCase()} \n`
     }
     text += `
@@ -171,10 +170,10 @@ function playWordle() {
         // If player clicks CANCEL
         if (userInput === null) {
             userInput = prompt(`
-    Do you want to continue? just click OK \n
-    Do you want to start over? Write "Y" and click OK \n
-    Do you want to quit? Write "Q" and click OK, 
-    or just click CANCEL.\n
+Do you want to continue? just click OK \n
+Do you want to start over? Write "Y" and click OK \n
+Do you want to quit? Write "Q" and click OK, 
+or just click CANCEL.\n
                 `)
             result = handleCancelButton(userInput)
         }
