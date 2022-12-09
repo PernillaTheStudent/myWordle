@@ -31,6 +31,7 @@ function initializeGame() {
     wordleWord = ["_", "_", "_", "_", "_"]
 
     computerWord = getComputerWord().toLowerCase()
+    computerWord = "light"
 }
 
 function getComputerWord() {
@@ -53,7 +54,7 @@ function letterFrequency(word) {
 function userSelection(userInput) {
     const pattern = /^[A-Z]{5}$/i
     userInput = userInput.toLowerCase().trim()
-    
+
     if (userInput.match(pattern)) {
         userGuesses.push(userInput)
         const userHasWon = computerWord.includes(userInput.toLowerCase())
@@ -69,14 +70,21 @@ function userSelection(userInput) {
                 if (computerWord.indexOf(letter, index) === userInput.indexOf(letter, index)) {
                     lastLettersRightPosition[computerWord.indexOf(letter, index)] = letter
                     wordleWord[computerWord.indexOf(letter, index)] = letter
+                    // lastLettersWrongPosition = lastLettersWrongPosition.filter(x => x !== letter)
+                    // console.log("Letters in right position: " + lettersRightPosition)
 
                     // if the letters exist in computerWord
                     // but the letter is in wrong position
                 } else if (computerWord.indexOf(letter) !== -1) {
-                    lastLettersWrongPosition.push(letter)
+                    if (lastLettersWrongPosition.indexOf(letter) === -1 &&
+                        lastLettersRightPosition.indexOf(letter) === -1) {
+                        lastLettersWrongPosition.push(letter)
+                        // console.log("Right letters in wrong position: " + lettersWrongPosition)
+                    }
                 } else {
                     if (wrongUserLetters.indexOf(letter) === -1) {
                         wrongUserLetters.push(letter)
+                        // console.log("Letters don't exist in wordleWord: " + wrongUserLetters)
                     }
                 }
                 index++
@@ -84,7 +92,7 @@ function userSelection(userInput) {
             // if all occurrences of a letter is shown in wordleWord, than erase them from lastLettersWrongPosition
             let freqWordleWord = letterFrequency(wordleWord)
             let freqComputerWord = letterFrequency(computerWord)
-            const lastGuess = userGuesses[userGuesses.length-1];
+            const lastGuess = userGuesses[userGuesses.length - 1];
             // console.log(wordleWord)
             // console.log(freqWordleWord)
             // console.log(freqComputerWord)
@@ -101,7 +109,6 @@ function userSelection(userInput) {
     }
 }
 
-
 function handleCancelButton(userInput) {
     const quit = /^[Q]{1}$/i
     const playAgain = /^[Y]{1}$/i
@@ -115,36 +122,36 @@ function handleCancelButton(userInput) {
 
 function displayGame() {
     let text = `* * * * * * * * * * * * * * * * * * * * * * 
-    GUESS THE WORD
+  GUESS THE WORD
 * * * * * * * * * * * * * * * * * * * * * * `
     if (userGuesses.length === 0) {
         text += `
-    Guess a five letter word. Only letters from a to z. \n
-    Correct word:  ${wordleWord.join("  ")} \n`
+Guess a five letter word. Only letters from a to z. \n
+Correct word:  ${wordleWord.join("  ")} \n`
     } else {
         text += `
-    ${userGuesses.join(" - ")} \n 
-    Last guess with letters in wrong place:  ${lastLettersWrongPosition.join(" ").toUpperCase()} 
-    Correct word:  ${wordleWord.join("  ").toUpperCase()} \n`
+${userGuesses.join(" - ")} \n 
+Last guess with letters in wrong place:  ${lastLettersWrongPosition.join(" ").toUpperCase()} 
+Correct word:  ${wordleWord.join("  ").toUpperCase()} \n`
     }
     text += `
-    You have ${maximumNumberOfTurns - userGuesses.length} guesses to go.\n`
+You have ${maximumNumberOfTurns - userGuesses.length} guesses to go.\n`
 
     return userInput = prompt(text)
 }
 function showResult(userHasWon) {
-    let resultInfo = `    You made ${userGuesses.length} guesses \n
-    Right word: ${computerWord.toUpperCase()} \n 
-    Your guesses: ${userGuesses.join(" - ")}`
+    let resultInfo = `You made ${userGuesses.length} guesses \n
+Right word: ${computerWord.toUpperCase()} \n 
+Your guesses: ${userGuesses.join(" - ")}`
     let text = ""
     if (userHasWon) {
-        text = `    * * * * * * * * * * * * * * * * * * * * * * 
-        Hurray! You won!
-    * * * * * * * * * * * * * * * * * * * * * * \n`
+        text = `* * * * * * * * * * * * * * * * * * * * * * 
+  Hurray! You won!
+* * * * * * * * * * * * * * * * * * * * * * \n`
         text += resultInfo
     } else {
         text = `* * * * * * * * * * * * * * * * * * * * * * 
-        Game Over!
+  Game Over!
 * * * * * * * * * * * * * * * * * * * * * * \n`
         text += resultInfo
     }
