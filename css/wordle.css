@@ -1,0 +1,32 @@
+html {
+    box-sizing: border-box;
+    font-family: 'Source Sans Pro', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    height: 100vh;
+}
+
+/* inherit box-sizing from .html */
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+}
+
+header {
+    background-color:darkcyan;
+    padding: 3rem;
+}
+
+h1 {
+    font-size: 3rem;
+    color: white;
+    text-align: center;
+}
