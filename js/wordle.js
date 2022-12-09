@@ -52,6 +52,7 @@ function letterFrequency(word) {
 
 function userSelection(userInput) {
     const pattern = /^[A-Z]{5}$/i
+    userInput = userInput.toLowerCase().trim()
     
     if (userInput.match(pattern)) {
         userGuesses.push(userInput)
@@ -118,17 +119,16 @@ function displayGame() {
 * * * * * * * * * * * * * * * * * * * * * * `
     if (userGuesses.length === 0) {
         text += `
-        Guess a five letter word. Only letters from a to z. \n
-        Correct word:  ${wordleWord.join("  ")} \n
-        `
+    Guess a five letter word. Only letters from a to z. \n
+    Correct word:  ${wordleWord.join("  ")} \n`
     } else {
         text += `
-        ${userGuesses.join(" - ")} \n 
-        Last guess: letters in wrong place:  ${lastLettersWrongPosition.join(" ").toUpperCase()} 
-        Correct word:  ${wordleWord.join("  ").toUpperCase()} \n
-        `
+    ${userGuesses.join(" - ")} \n 
+    Last guess with letters in wrong place:  ${lastLettersWrongPosition.join(" ").toUpperCase()} 
+    Correct word:  ${wordleWord.join("  ").toUpperCase()} \n`
     }
-    text += `You have ${maximumNumberOfTurns - userGuesses.length} guesses to go\n`
+    text += `
+    You have ${maximumNumberOfTurns - userGuesses.length} guesses to go.\n`
 
     return userInput = prompt(text)
 }
@@ -164,10 +164,10 @@ function playWordle() {
         // If player clicks CANCEL
         if (userInput === null) {
             userInput = prompt(`
-                Do you want to continue? just click OK \n
-                Do you want to start over? Write "Y" and click OK \n
-                Do you want to quit? Write "Q" and click OK, 
-                or just click CANCEL.\n
+    Do you want to continue? just click OK \n
+    Do you want to start over? Write "Y" and click OK \n
+    Do you want to quit? Write "Q" and click OK, 
+    or just click CANCEL.\n
                 `)
             result = handleCancelButton(userInput)
         }
