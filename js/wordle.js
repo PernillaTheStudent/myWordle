@@ -209,4 +209,6 @@ or just click CANCEL.\n
     }
 }
 
+console.log(letterFrequency("hapte"));
+
 playWordle()
